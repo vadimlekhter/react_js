@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MessageField from './MessageField.jsx';
 export default class Message extends React.Component {
 static propTypes = {
     message: PropTypes.string.isRequired,
@@ -9,7 +8,6 @@ static propTypes = {
 
 
     render() {
-
         const year = new Date().getFullYear();
         const month = new Date().getMonth();
         const day = new Date().getDate();
@@ -24,5 +22,7 @@ static propTypes = {
                 {this.props.message !== 'Я бот' && [<p key ='1' className={'my-message-sub'}>Я</p>,
                     <p key = '2' className={'my-message-sub'}>{hour}:{minute} {day}-{month}-{year}</p>]}
             </div>])
+
+
     }
 }

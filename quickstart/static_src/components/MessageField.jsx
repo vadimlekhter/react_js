@@ -1,6 +1,5 @@
 import React from 'react';
 import Message from './Message.jsx';
-import PropTypes from 'prop-types';
 
 export default class MessageField extends React.Component {
     state = {
@@ -13,6 +12,8 @@ export default class MessageField extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         const lastMessageId = this.state.messageList[this.state.messageList.length - 1];
         const lastMessageSender = this.state.messages[lastMessageId] ? this.state.messages[lastMessageId].sender : '';
+
+
         if (prevState.messageList.length < this.state.messageList.length && lastMessageSender === "Me") {
             setTimeout(this.handleReplyMessage, 2000);
         }
@@ -22,7 +23,6 @@ export default class MessageField extends React.Component {
             messageList.push(this.state.curId);
             const messages = this.state.messages;
             messages[this.state.curId] = {sender: 'Bot', message: 'Я бот'};
-            //setTimeout(() => this.setState({messageList, messages, input: '', curId: this.state.curId + 1}), 5000);
             this.setState({messageList, messages, input: '', curId: this.state.curId + 1});
     };
 
