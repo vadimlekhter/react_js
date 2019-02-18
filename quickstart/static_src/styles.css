@@ -1,3 +1,37 @@
+body {
+    background-color: #f5f4e5;
+}
+
+#main {
+    padding-left: 350px;
+}
+
 .test-class {
     color: brown;
+}
+
+.bot-message {
+    font-size: 20px;
+    width: 300px;
+    color: red;
+    text-align: right;
+}
+
+.my-message {
+    font-size: 20px;
+    width: 400px;
+    color: blue;
+}
+
+.bot-message-sub {
+    width: 300px;
+    text-align: right;
+    opacity: 0.5;
+    font-size: 12px;
+}
+
+.my-message-sub {
+    width: 300px;
+    opacity: 0.5;
+    font-size: 12px;
 }
