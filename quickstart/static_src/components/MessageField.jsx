@@ -18,12 +18,13 @@ export default class MessageField extends React.Component {
             setTimeout(this.handleReplyMessage, 2000);
         }
     }
+
     handleReplyMessage = () => {
-            const messageList = this.state.messageList.slice();
-            messageList.push(this.state.curId);
-            const messages = this.state.messages;
-            messages[this.state.curId] = {sender: 'Bot', message: 'Я бот'};
-            this.setState({messageList, messages, input: '', curId: this.state.curId + 1});
+        const messageList = this.state.messageList.slice();
+        messageList.push(this.state.curId);
+        const messages = this.state.messages;
+        messages[this.state.curId] = {sender: 'Bot', message: 'Я бот'};
+        this.setState({messageList, messages, input: '', curId: this.state.curId + 1});
     };
 
     handleSendMessage = () => {
@@ -39,7 +40,8 @@ export default class MessageField extends React.Component {
 
     render() {
         const messages = this.state.messageList.map((messageId, index) => <Message key={`${messageId}${index}`}
-                                                                                   message={this.state.messages[messageId].message}/>);
+                                                                                   message={this.state.messages[messageId].message}
+                                                                                   sender={this.state.messages[messageId].sender}/>);
         return (
             <div key="first">
                 <br></br>

@@ -14,12 +14,12 @@ static propTypes = {
         const hour = new Date().getHours();
         const minute = new Date().getMinutes();
 
-        return ([<div key = 'first' className={this.props.message === 'Я бот' ? 'bot-message':'my-message'}>{this.props.message}</div>,
+        return ([<div key = 'first' className={this.props.sender === 'Bot' ? 'bot-message':'my-message'}>{this.props.message}</div>,
             <div key="second">
-                {this.props.message === 'Я бот' && [<p key = '1' className={'bot-message-sub'}>Бот</p>,
+                {this.props.sender === 'Bot' && [<p key = '1' className={'bot-message-sub'}>Бот</p>,
                     <p key = '2' className={'bot-message-sub'}>{hour}:{minute} {day}-{month}-{year}</p>]}
 
-                {this.props.message !== 'Я бот' && [<p key ='1' className={'my-message-sub'}>Я</p>,
+                {this.props.sender !== 'Bot' && [<p key ='1' className={'my-message-sub'}>Я</p>,
                     <p key = '2' className={'my-message-sub'}>{hour}:{minute} {day}-{month}-{year}</p>]}
             </div>])
 
