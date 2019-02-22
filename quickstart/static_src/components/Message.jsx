@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Chip from 'material-ui/Chip';
+
 export default class Message extends React.Component {
-static propTypes = {
-    message: PropTypes.string.isRequired,
-    sender: PropTypes.string.isRequired,
-};
+
+    static propTypes = {
+        message: PropTypes.string.isRequired,
+        sender: PropTypes.string.isRequired,
+    };
 
 
     render() {
@@ -14,15 +17,21 @@ static propTypes = {
         const hour = new Date().getHours();
         const minute = new Date().getMinutes();
 
-        return ([<div key = 'first' className={this.props.sender === 'Bot' ? 'bot-message':'my-message'}>{this.props.message}</div>,
-            <div key="second">
-                {this.props.sender === 'Bot' && [<p key = '1' className={'bot-message-sub'}>Бот</p>,
-                    <p key = '2' className={'bot-message-sub'}>{hour}:{minute} {day}-{month}-{year}</p>]}
+        const {message, sender} = this.props;
 
-                {this.props.sender !== 'Bot' && [<p key ='1' className={'my-message-sub'}>Я</p>,
-                    <p key = '2' className={'my-message-sub'}>{hour}:{minute} {day}-{month}-{year}</p>]}
-            </div>])
+        return (
+<div className='message-one'>
+    {[
+                <Chip key='first' className={sender === 'Bot' ? 'bot-message' : 'my-message'}>{message}</Chip>,
+                <div className='sub-message' key="second">
+                    {sender === 'Bot' && [<div key='1' className={'bot-message-sub'}>Бот</div>,
+                        <div key='2' className={'bot-message-sub'}>{hour}:{minute} {day}-{month}-{year}</div>]}
 
-
+                    {sender !== 'Bot' && [<div key='1' className={'my-message-sub'}>Я</div>,
+                        <div key='2' className={'my-message-sub'}>{hour}:{minute} {day}-{month}-{year}</div>]}
+                </div>
+            ]}
+</div>
+        )
     }
 }
