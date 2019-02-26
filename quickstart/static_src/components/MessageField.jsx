@@ -1,62 +1,54 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {bindActionCreators} from 'redux';
+import connect from 'react-redux/es/connect/connect';
 import Message from './Message.jsx';
 import TextField from 'material-ui/TextField';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import SendIcon from 'material-ui/svg-icons/action/input';
+import {sendMessage, replyMessage} from '../actions/messageAction';
 
-export default class MessageField extends React.Component {
+class MessageField extends React.Component {
 
     static propTypes = {
         chatId: PropTypes.string.isRequired,
+        sendMessage: PropTypes.func.isRequired,
+        replyMessage: PropTypes.func.isRequired,
+        messageLists: PropTypes.object.isRequired,
+        messages: PropTypes.object.isRequired,
     };
 
     state = {
-        curId: 1,
-        messageLists: {1: [], 2: [], 3: [], 4: [], 5: []},
-        messages: {},
         input: '',
     };
 
-    componentDidUpdate(prevProps, prevState) {
-        const {messageLists, messages, curId, input} = this.state;
-        const {chatId} = this.props;
-        const lastMessageId = messageLists[this.props.chatId][messageLists[this.props.chatId].length - 1];
+    componentDidUpdate(prevProps) {
+        const {messageLists, messages, chatId} = this.props;
+        const lastMessageId = messageLists[chatId][messageLists[chatId].length - 1];
         const lastMessageSender = messages[lastMessageId] ? messages[lastMessageId].sender : '';
-        if (prevState.messageLists[chatId].length < messageLists[chatId].length && lastMessageSender === "Me") {
-            setTimeout(this.handleReplyMessage, 2000);
+        if (prevProps.messageLists[chatId].length < messageLists[chatId].length && lastMessageSender === "Me") {
+            setTimeout(this.handleReplyMessage, 1000);
         }
+        setTimeout(this.handleScroll, 1);
     }
 
-    handleReplyMessage = () => {
-        const {messageLists, messages, curId, input} = this.state;
-        const {chatId} = this.props;
-
-        const messageList = [...messageLists[chatId], curId];
-        const newMessageLists = Object.assign({}, messageLists, {[chatId]: messageList});
-
-        const newMessages = Object.assign({}, messages, {[curId]: {sender: 'Bot', message: 'Я бот', chatId: chatId}});
-        this.setState({messageLists: newMessageLists, messages: newMessages, input: '', curId: curId + 1});
-
-        this.handleScroll();
-
+    handleSendMessage = () => {
+        const {input} = this.state;
+        this.props.sendMessage(this.props.chatId, input);
+        this.setState({input: ''});
     };
 
-    handleSendMessage = () => {
-        const {messageLists, messages, curId, input} = this.state;
-        const {chatId} = this.props;
-
-        const messageList = [...messageLists[chatId], curId];
-        const newMessageLists = Object.assign({}, messageLists, {[chatId]: messageList});
-
-        messages[curId] = {sender: 'Me', message: input, chatId: chatId};
-        this.setState({messageLists: newMessageLists, messages, input: '', curId: curId + 1});
-
-        setTimeout(this.handleScroll,1);
+    handleReplyMessage = () => {
+        this.props.replyMessage(this.props.chatId);
     };
 
     handleInput = (e) => {
         this.setState({input: e.target.value});
+    };
+
+    handleScroll = () => {
+        const div = document.getElementById("scroll-div");
+        div.scrollTop = div.scrollHeight - div.clientHeight;
     };
 
     isEmptyObject = (obj) => {
@@ -66,14 +58,11 @@ export default class MessageField extends React.Component {
         return true;
     };
 
-    handleScroll = () => {
-        const div = document.getElementById("scroll-div");
-        div.scrollTop = div.scrollHeight - div.clientHeight;
-    };
 
     render() {
-        const {messageLists, messages, curId, input} = this.state;
-        const {chatId} = this.props;
+        const {messageLists, messages, curId, chatId} = this.props;
+        const {input} = this.state;
+
 
         const messagesConst = messageLists[chatId].map((messageId, index) => <Message
             key={`${messageId}${index}`}
@@ -81,9 +70,10 @@ export default class MessageField extends React.Component {
             sender={messages[messageId].sender}/>);
         return (
             <div key="first">
-                {this.isEmptyObject(messagesConst) && <span style={{opacity: 0.5}}>Сообщений нет</span>}
+
                 <br></br>
                 <div className="message" id="scroll-div">
+                    {this.isEmptyObject(messagesConst) && <span style={{opacity: 0.5}}>В чате сообщений нет</span>}
                     {messagesConst}
                 </div>
                 <br></br>
@@ -96,3 +86,12 @@ export default class MessageField extends React.Component {
         )
     }
 }
+
+const mapStateToProps = ({messageReducer}) => ({
+    messageLists: messageReducer.messageLists,
+    messages: messageReducer.messages,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({sendMessage, replyMessage}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(MessageField);
