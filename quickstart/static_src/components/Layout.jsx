@@ -29,7 +29,6 @@ export default class Layout extends React.Component {
                         <MessageField
                             chatId={chatId}
                             isEmptyObject={this.isEmptyObject}
-                            //handleScroll={this.handleScroll()}
                         />
                     </div>
                 </div>

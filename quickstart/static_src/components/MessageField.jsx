@@ -73,7 +73,7 @@ class MessageField extends React.Component {
 
                 <br></br>
                 <div className="message" id="scroll-div">
-                    {this.isEmptyObject(messagesConst) && <span style={{opacity: 0.5}}>В чате сообщений нет</span>}
+                    {this.isEmptyObject(messagesConst) && <span style={{opacity: 0.5}}>В чате нет сообщений</span>}
                     {messagesConst}
                 </div>
                 <br></br>
