@@ -29,6 +29,9 @@ body {
 }
 
 .listitem {
+    width: 40%;
+    padding: 5px 5px 5px 5px;
+    border-radius: 10px 10px 10px 10px;
     display: flex;
     color: grey;
 }

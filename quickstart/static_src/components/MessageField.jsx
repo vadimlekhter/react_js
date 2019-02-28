@@ -22,13 +22,8 @@ class MessageField extends React.Component {
         input: '',
     };
 
-    componentDidUpdate(prevProps) {
-        const {messageLists, messages, chatId} = this.props;
-        const lastMessageId = messageLists[chatId][messageLists[chatId].length - 1];
-        const lastMessageSender = messages[lastMessageId] ? messages[lastMessageId].sender : '';
-        if (prevProps.messageLists[chatId].length < messageLists[chatId].length && lastMessageSender === "Me") {
-            setTimeout(this.handleReplyMessage, 1000);
-        }
+    componentDidUpdate() {
+
         setTimeout(this.handleScroll, 1);
     }
 
@@ -36,10 +31,6 @@ class MessageField extends React.Component {
         const {input} = this.state;
         this.props.sendMessage(this.props.chatId, input);
         this.setState({input: ''});
-    };
-
-    handleReplyMessage = () => {
-        this.props.replyMessage(this.props.chatId);
     };
 
     handleInput = (e) => {
