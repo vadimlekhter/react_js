@@ -1,0 +1,95 @@
+body {
+    background-color: #f5f4e5;
+}
+
+#main {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.header {
+    width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding-bottom: 50px;
+}
+
+.layout {
+    width: 800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.layout-left-side {
+    width: 40%;
+    display: flex;
+}
+
+.listitem {
+    width: 40%;
+    padding: 5px 5px 5px 5px;
+    border-radius: 10px 10px 10px 10px;
+    display: flex;
+    color: grey;
+}
+
+.layout-right-side {
+    width: 60%;
+    display: flex;
+}
+
+.test-class {
+    color: brown;
+}
+
+.message {
+    height: 300px;
+    overflow: hidden auto;
+    padding: 15px;
+    border: brown;
+    display: flex;
+    flex-direction: column;
+}
+
+.message-one {
+    display: flex;
+    flex-direction: column;
+    min-height: 100px;
+}
+
+.bot-message {
+    display: flex;
+    align-self: flex-end;
+}
+
+.my-message {
+    display: flex;
+    align-self: flex-start;
+}
+
+.sub-message {
+    min-height: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.bot-message-sub {
+    align-self: flex-end;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    opacity: 0.5;
+    font-size: 12px;
+}
+
+.my-message-sub {
+    align-self: flex-start;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    opacity: 0.5;
+    font-size: 12px;
+}
