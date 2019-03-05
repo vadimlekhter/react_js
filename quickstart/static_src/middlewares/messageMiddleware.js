@@ -12,7 +12,6 @@ export default store => next => (action) => {
             setTimeout(() => chat.style.backgroundColor = '', 2000);
             break;
         case LOCATION_CHANGE:
-            //console.log(LOCATION_CHANGE);
             break;
 
         default:

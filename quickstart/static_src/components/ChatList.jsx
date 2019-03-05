@@ -4,7 +4,7 @@ import {List, ListItem} from 'material-ui/List';
 import {Link} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import {push} from 'react-router-redux';
-import {addChat} from '../actions/messageAction';
+import {addChat, loadChats} from '../actions/messageAction';
 import connect from 'react-redux/es/connect/connect';
 import {red500, black} from 'material-ui/styles/colors';
 import AddIcon from 'material-ui/svg-icons/content/add';
@@ -13,11 +13,15 @@ class ChatList extends React.Component {
 
     static propTypes = {
         chatId: PropTypes.string.isRequired,
-        messageLists: PropTypes.object.isRequired,
         chats: PropTypes.object.isRequired,
         push: PropTypes.func.isRequired,
         addChat: PropTypes.func.isRequired,
+        loadChats: PropTypes.func.isRequired,
     };
+
+    componentDidMount () {
+        this.props.loadChats();
+}
 
     static defaultProps = {
         data: 'Пусто',
@@ -32,15 +36,15 @@ class ChatList extends React.Component {
     };
 
     render() {
-        const {messageLists, chats} = this.props;
+        const {chats} = this.props;
         const chatItems = Object.keys(chats).map((chatId) =>
             <div key={chatId} className="listitem" id={chatId}>
                 <ListItem
                     style={this.props.chatId === chatId ? {color: red500} : {color: black}}
-                    primaryText={`${chats[chatId]}`}
+                    primaryText={`${chats[chatId].name}`}
                     onClick={() => this.handleChangeChat(chatId)}
                 />
-                {messageLists[chatId].length}
+                {chats[chatId].messages.length}
             </div>
         );
 
@@ -63,6 +67,6 @@ const mapStateToProps = ({messageReducer}) => ({
     chats: messageReducer.chats,
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({push, addChat}, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({push, addChat, loadChats}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatList);

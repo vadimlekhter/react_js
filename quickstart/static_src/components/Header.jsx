@@ -8,7 +8,7 @@ import connect from "react-redux/es/connect/connect";
 class Header extends React.Component {
 
     static propTypes = {
-    messageCount: PropTypes.number,
+        messageCount: PropTypes.number.isRequired,
 };
 
 
@@ -30,7 +30,7 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = ({messageReducer}) => ({
-    messageCount: messageReducer.messageCount,
+    messageCount: Object.keys(messageReducer.messages).length,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);

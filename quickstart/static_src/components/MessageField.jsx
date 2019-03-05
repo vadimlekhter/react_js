@@ -14,8 +14,9 @@ class MessageField extends React.Component {
         chatId: PropTypes.string.isRequired,
         sendMessage: PropTypes.func.isRequired,
         replyMessage: PropTypes.func.isRequired,
-        messageLists: PropTypes.object.isRequired,
+        chats: PropTypes.object.isRequired,
         messages: PropTypes.object.isRequired,
+        isLoading:PropTypes.bool.isRequired,
     };
 
     state = {
@@ -51,11 +52,17 @@ class MessageField extends React.Component {
 
 
     render() {
-        const {messageLists, messages, curId, chatId} = this.props;
+
+        if (this.props.isLoading) {
+            return (<div>Загрузка...</div>)
+        }
+
+
+        const {chats, messages, curId, chatId} = this.props;
         const {input} = this.state;
 
 
-        const messagesConst = messageLists[chatId].map((messageId, index) => <Message
+        const messagesConst = chats[chatId].messages.map((messageId, index) => <Message
             key={`${messageId}${index}`}
             message={messages[messageId].message}
             sender={messages[messageId].sender}/>);
@@ -79,8 +86,9 @@ class MessageField extends React.Component {
 }
 
 const mapStateToProps = ({messageReducer}) => ({
-    messageLists: messageReducer.messageLists,
+    chats: messageReducer.chats,
     messages: messageReducer.messages,
+    isLoading: messageReducer.isLoading,
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({sendMessage, replyMessage}, dispatch);
