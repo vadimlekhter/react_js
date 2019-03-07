@@ -1,0 +1,45 @@
+{
+  "name": "quickstart",
+  "version": "1.0.0",
+  "description": "demonstration",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack --mode development",
+    "build": "NODE_ENV=prod webpack --mode production"
+  },
+  "author": "Vadim Lekhter",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.3.3",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "css-loader": "^2.1.0",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "scss-loader": "0.0.1",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.3"
+  },
+  "babel": {
+    "presets": [
+      "@babel/env",
+      "@babel/react"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
+  },
+  "dependencies": {
+    "material-ui": "^0.20.2",
+    "normalizr": "^3.2.4",
+    "react-addons-update": "^15.6.2",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.3.1",
+    "react-router-redux": "^5.0.0-alpha.9",
+    "redux": "^3.7.2",
+    "redux-api-middleware": "^2.0.1"
+  }
+}
